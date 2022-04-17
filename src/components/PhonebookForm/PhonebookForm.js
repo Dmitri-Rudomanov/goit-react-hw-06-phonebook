@@ -3,11 +3,7 @@ import s from './PhonebookForm.module.css';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addItem,
-  deleteItem,
-  changeFilter,
-} from '../../redux/phonebook-reducer';
+import { addItem } from '../../redux/phonebook-reducer';
 
 export default function PhonebookForm() {
   const contacts = useSelector(state => state.contacts.items);
