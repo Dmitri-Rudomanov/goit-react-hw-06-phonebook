@@ -4,7 +4,7 @@ const itemsSlice = createSlice({
   name: 'contacts',
   initialState: [],
   reducers: {
-    addContact: (state, action) => {
+    addItem: (state, action) => {
       return [...state, action.payload];
     },
     deleteItem: (state, action) => {
@@ -28,6 +28,6 @@ const contactReducer = combineReducers({
   filter: filterSlice.reducer,
 });
 
-export const { addContact, deleteItem } = itemsSlice.actions;
+export const { addItem, deleteItem } = itemsSlice.actions;
 export const { changeFilter } = filterSlice.actions;
 export default contactReducer;

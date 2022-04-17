@@ -1,8 +1,17 @@
 import { useState } from 'react';
 import s from './PhonebookForm.module.css';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addItem,
+  deleteItem,
+  changeFilter,
+} from '../../redux/phonebook-reducer';
 
-export default function PhonebookForm({ onAddContact }) {
+export default function PhonebookForm() {
+  const contacts = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -19,17 +28,22 @@ export default function PhonebookForm({ onAddContact }) {
       default:
         return;
     }
-    // if (name === 'name') {
-    //   setName(value);
-    // }
-    // if (name === "number") {
-    //   setNumber(value);
-    // }
+  };
+  const addNewContact = items => {
+    const searchContact = contacts
+      .map(contact => contact.name.toLowerCase())
+      .includes(items.name.toLowerCase());
+
+    if (searchContact) {
+      alert(`${items.name} is already in conacts`);
+    } else {
+      return dispatch(addItem({ id: shortid.generate(), ...items }));
+    }
   };
 
   const addContact = e => {
     e.preventDefault();
-    onAddContact({ name, number });
+    addNewContact({ name, number });
     setName('');
     setNumber('');
   };
